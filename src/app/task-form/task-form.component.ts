@@ -26,9 +26,9 @@ export class TaskFormComponent {
     if (this.taskForm.valid) {
       const newTask: Task = this.taskForm.value as Task;
 
-      // Call the service to add the task (you need to implement the addTask() method in the TaskService)
+      
       this.taskService.addTask(newTask).subscribe(() => {
-        // Redirect to the TaskListComponent after adding the task
+    
         this.router.navigate(['/tasks']);
       });
     }

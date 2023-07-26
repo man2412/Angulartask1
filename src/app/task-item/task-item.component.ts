@@ -9,4 +9,9 @@ import { Task } from '../task.model';
 export class TaskItemComponent {
   @Input() task!: Task;
   @Output() delete = new EventEmitter<number>();
+
+  onDelete(): void {
+    
+    this.delete.emit(this.task.id);
+  }
 }

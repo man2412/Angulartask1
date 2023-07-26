@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -9,12 +9,16 @@ import { TaskService } from '../task.service';
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
+  private taskListSubscription!: Subscription;
 
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.loadTasks();
-  }
+    this.taskListSubscription = this.taskService.getTaskListUpdates().subscribe(updatedTasks => {
+      this.tasks = updatedTasks;
+  });
+}
 
   loadTasks(): void {
     this.taskService.getTasks()
@@ -23,7 +27,7 @@ export class TaskListComponent implements OnInit {
       });
   }
 
-  deleteTask(taskId: number): void {
+  onDeleteTask(taskId: number): void {
     this.taskService.deleteTask(taskId)
       .subscribe(() => {
         this.loadTasks(); 

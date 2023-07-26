@@ -1,6 +1,4 @@
-
-<div>
-    {{ task.title }}
-    <button (click)="delete.emit(task.id)">Delete</button>
-  </div>
-  
+<div class="task-item">
+  <span>{{ task.title }}</span>
+  <button (click)="onDelete()" class="btn-delete">Delete</button>
+</div>
